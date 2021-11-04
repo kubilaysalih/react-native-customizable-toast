@@ -65,7 +65,7 @@ export const Toast = () => {
               />
             )}
             <Text style={styles.text}>{text}</Text>
-            {loading && <ActivityIndicator color="#fff" />}
+            {loading && <ActivityIndicator size="small" color="#fff" />}
           </TouchableOpacity>
         </View>
       </Swipeable>
@@ -81,9 +81,11 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   touchable: {
+    alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 5,
     padding: 10,
+    minHeight: 40,
   },
   text: {
     color: '#ffffff',
