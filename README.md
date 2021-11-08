@@ -1,10 +1,9 @@
-<h1 align="center" style="text-align: center;">react-native-customizable-toast</h1>
+<h1 align="center">react-native-customizable-toast</h1>
 
-<p align="center" style="font-size: 1.2rem;">
-  <p>yet another toast library based on reanimated 2 layout animations</p>
-  <img src="https://i.imgur.com/EpVVMHq.gif" />
+<p align="center">
+  <h4>yet another toast library based on reanimated 2 layout animations</h4>
+  <img style="text-align: center" src="https://imgur.com/vpOfl05.gif" />
 </p>
-
 
 
 ## Features
@@ -80,6 +79,10 @@ ToasterHelper.update(toast, {
 // hide toast
 ToasterHelper.hide(toast)
 ```
+## Customizing
+
+If you want to change toaster, toast or animations, you can look into default [Toaster](https://github.com/kubilaysalih/react-native-customizable-toast/blob/main/src/Toaster.tsx) component.
+
 
 ## TODO
 - [ ] Better README.md or docs
