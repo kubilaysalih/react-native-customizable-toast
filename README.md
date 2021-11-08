@@ -1,6 +1,24 @@
-# react-native-customizable-toast
+<h1 align="center" style="text-align: center;">react-native-customizable-toast</h1>
 
-yet another toast library based on reanimated 2 layout animations
+<p align="center" style="font-size: 1.2rem;">
+  <p>yet another toast library based on reanimated 2 layout animations</p>
+  <img src="https://i.imgur.com/EpVVMHq.gif" />
+</p>
+
+
+
+## Features
+- Imperative API
+- Fully Customizable
+  - Custom toast renderer
+  - Custom vertical swipe animations
+  - Custom layout animations
+- Swipeable both vertical and horizontal
+- Fully typed with TypeScript
+
+## Requirements
+- react-native-reanimated ^2.3.0
+- react-native-gesture-handler ^1.10.0
 
 ## Installation
 
@@ -8,15 +26,63 @@ yet another toast library based on reanimated 2 layout animations
 npm install react-native-customizable-toast
 ```
 
-## Usage
+## Basic Usage
+Use default Toaster component in your base component.
 
 ```js
-import { multiply } from "react-native-customizable-toast";
+import { Toaster } from "react-native-customizable-toast";
 
-// ...
+export default function App() {
+  return (
+    <View style={{ flex: 1 }}>
+      <Content />
 
-const result = await multiply(3, 7);
+      <Toaster />
+    </View>
+  );
+}
+
 ```
+
+Use ToasterHelper to show a simple toast.
+
+```js
+import { ToasterHelper } from "react-native-customizable-toast";
+
+ToasterHelper.show({
+  text: 'lorem ipsum',
+  type: 'success',
+  timeout: 5000,
+});
+
+```
+
+## Default Methods
+
+```js
+// show toast
+const toast = ToasterHelper.show({
+  text: 'custom string',
+  timeout: 5000,
+  type: 'info',
+  onPress: () => {},
+  dismissible: false,
+  loading: true,
+});
+
+// update toast
+ToasterHelper.update(toast, {
+  dismissible: true,
+  loading: false,
+});
+
+
+// hide toast
+ToasterHelper.hide(toast)
+```
+
+## TODO
+- [ ] Better README.md or docs
 
 ## Contributing
 

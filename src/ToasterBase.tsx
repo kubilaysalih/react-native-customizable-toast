@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {
   forwardRef,
   createElement,
@@ -6,13 +5,14 @@ import React, {
   useState,
   Ref,
   ReactElement,
-  FunctionComponent,
-  ComponentClass,
+  RefObject,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Toast as ToastComponent } from './components/Toast';
 import { ToastContainer } from './components/ToastContainer';
 import { ToastContext } from './contexts/ToastContext';
+import Animated from 'react-native-reanimated';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 
 import type {
   Toast,
@@ -20,19 +20,21 @@ import type {
   ToasterProps,
   ToastOptions,
 } from './typings';
+import { useLayout } from './hooks/useLayout';
+import { useContainerSwipeGesture } from './hooks/useContainerSwipeGesture';
 
-const ToasterBaseWithoutRef = <
-  T extends FunctionComponent<any> | ComponentClass<any, any>
->(
-  { render = ToastComponent, ...rest }: ToasterProps,
+const ToasterBaseWithoutRef = <T extends object>(
+  { render = ToastComponent, onSwipeEdge, itemStyle, ...rest }: ToasterProps<T>,
   ref: Ref<ToasterMethods<T>>
 ) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const { height, x, y, width, onLayout } = useLayout();
 
   useImperativeHandle(ref, () => ({
     show: _show,
     hide: _hide,
     update: _update,
+    filter: _filter,
   }));
 
   const _show = (options?: ToastOptions) => {
@@ -51,35 +53,74 @@ const ToasterBaseWithoutRef = <
     setToasts((prev) => prev.filter((e) => e.id !== id));
   };
 
+  const _filter = (fn: (value: any, index: number) => void) => {
+    setToasts((prev) => prev.filter(fn));
+  };
+
+  const _hideAll = () => {
+    setToasts([]);
+  };
+
+  const { panGesture, translationY, translationX } = useContainerSwipeGesture({
+    onFinish: () => {
+      if (onSwipeEdge) {
+        onSwipeEdge({ filter: _filter, hide: _hide, hideAll: _hideAll });
+        return;
+      }
+      _hideAll();
+    },
+  });
+
   return (
     <View style={StyleSheet.absoluteFillObject} pointerEvents="box-none">
-      <View
-        style={{
-          flexDirection: 'column-reverse',
-        }}
+      <PanGestureHandler
+        activeOffsetY={[-10, 10]}
+        enabled={!!itemStyle}
+        onGestureEvent={panGesture}
       >
-        {toasts.map((e, index) => {
-          const hide = () => _hide(e.id);
-          return (
-            <ToastContext.Provider
-              key={e.id}
-              value={{
-                index,
-                hide,
-                ...e,
-              }}
-            >
-              <ToastContainer {...rest} index={index} key={e.id}>
-                {createElement(render)}
-              </ToastContainer>
-            </ToastContext.Provider>
-          );
-        })}
-      </View>
+        <Animated.View onLayout={onLayout}>
+          {[...toasts].reverse().map((e, index) => {
+            const hide = () => _hide(e.id);
+            return (
+              <ToastContext.Provider
+                key={e.id}
+                value={{
+                  index,
+                  hide,
+                  ...e,
+                }}
+              >
+                <ToastContainer
+                  {...rest}
+                  index={index}
+                  key={e.id}
+                  gestureValues={{
+                    translationY,
+                    translationX,
+                  }}
+                  containerLayout={{
+                    height,
+                    x,
+                    y,
+                    width,
+                  }}
+                  itemStyle={itemStyle}
+                >
+                  {createElement(render)}
+                </ToastContainer>
+              </ToastContext.Provider>
+            );
+          })}
+        </Animated.View>
+      </PanGestureHandler>
     </View>
   );
 };
 
 export const ToasterBase = forwardRef(ToasterBaseWithoutRef) as <T>(
-  props: ToasterProps & { ref: Ref<ToasterMethods<T>> }
+  props: ToasterProps<
+    T extends RefObject<ToasterMethods<infer I>> ? I : never
+  > & {
+    ref: T;
+  }
 ) => ReactElement;

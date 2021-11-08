@@ -46,6 +46,7 @@ export const Toast = () => {
     () => (
       <Swipeable onSwipe={hide} disabled={loading || !dismissible}>
         <View style={styles.container}>
+          {console.log('render')}
           <TouchableOpacity
             activeOpacity={0.8}
             disabled={loading || !dismissible}

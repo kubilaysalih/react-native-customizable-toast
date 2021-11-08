@@ -1,19 +1,26 @@
 import React, { createRef } from 'react';
 import { ToasterBase } from './ToasterBase';
 import type { ToastProperties } from './components/Toast/typings';
-import type { ToasterMethods, ToastOptions, ToasterProps } from './typings';
-import { Toast } from './components/Toast';
+import type { ToasterMethods } from './typings';
+import { defaultStyleWorklet } from './components/ToastContainer/defaultStyleWorklet';
 
 export const ToasterRef = createRef<ToasterMethods<ToastProperties>>();
 
 export const ToasterHelper = {
-  show: (options: ToastOptions & ToastProperties) =>
-    ToasterRef.current?.show(options)!,
+  show: (options: ToastProperties) => ToasterRef.current?.show(options)!,
   hide: (id: string) => ToasterRef.current?.hide(id),
+  filter: (fn: (value: ToastProperties, index: number) => void) =>
+    ToasterRef.current?.filter(fn),
   update: (id: string, options: Partial<ToastProperties>) =>
     ToasterRef.current?.update(id, options),
 };
 
-export const Toaster = (props: ToasterProps) => {
-  return <ToasterBase {...props} ref={ToasterRef} render={Toast} />;
+export const Toaster = () => {
+  return (
+    <ToasterBase
+      onSwipeEdge={({ filter }) => filter((e) => e.loading)}
+      ref={ToasterRef}
+      itemStyle={defaultStyleWorklet}
+    />
+  );
 };
