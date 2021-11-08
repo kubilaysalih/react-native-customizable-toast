@@ -11,6 +11,7 @@ import type { ToastContainerProps } from '../../typings';
 
 export const ToastContainer = memo(
   ({
+    index,
     children,
     entering = FadeIn,
     exiting = FadeOut,
@@ -33,7 +34,10 @@ export const ToastContainer = memo(
               width,
             },
             containerLayout: containerLayout,
-            properties: toast,
+            properties: {
+              ...toast,
+              index,
+            },
           })
         : {};
     });

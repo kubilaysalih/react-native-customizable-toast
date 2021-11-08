@@ -46,7 +46,10 @@ export type ToastItemProps = {
   gesture: Translation;
   containerLayout: Layout;
   itemLayout: Layout;
-  properties: any;
+  properties: {
+    [key: string]: any;
+    index: number;
+  };
 };
 
 export interface ToasterProps<T = void> extends LayoutAnimationProps {

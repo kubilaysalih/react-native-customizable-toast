@@ -22,9 +22,15 @@ import type {
 } from './typings';
 import { useLayout } from './hooks/useLayout';
 import { useContainerSwipeGesture } from './hooks/useContainerSwipeGesture';
+import { defaultStyleWorklet } from 'react-native-customizable-toast';
 
 const ToasterBaseWithoutRef = <T extends object>(
-  { render = ToastComponent, onSwipeEdge, itemStyle, ...rest }: ToasterProps<T>,
+  {
+    render = ToastComponent,
+    onSwipeEdge,
+    itemStyle = defaultStyleWorklet,
+    ...rest
+  }: ToasterProps<T>,
   ref: Ref<ToasterMethods<T>>
 ) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -73,11 +79,7 @@ const ToasterBaseWithoutRef = <T extends object>(
 
   return (
     <View style={StyleSheet.absoluteFillObject} pointerEvents="box-none">
-      <PanGestureHandler
-        activeOffsetY={[-10, 10]}
-        enabled={!!itemStyle}
-        onGestureEvent={panGesture}
-      >
+      <PanGestureHandler activeOffsetY={[-10, 10]} onGestureEvent={panGesture}>
         <Animated.View onLayout={onLayout}>
           {[...toasts].reverse().map((e, index) => {
             const hide = () => _hide(e.id);

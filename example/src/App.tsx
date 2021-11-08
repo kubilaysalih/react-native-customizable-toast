@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-native-reanimated';
 import { StyleSheet, Text, View } from 'react-native';
 import { Toaster, ToasterHelper } from 'react-native-customizable-toast';
 import {
@@ -6,6 +7,10 @@ import {
   TouchableOpacity,
 } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  CustomToaster,
+  CustomToasterHelper,
+} from './CustomToaster/CustomToaster';
 
 const dummy = [
   'Lorem ipsum dolor sit amet.',
@@ -107,6 +112,20 @@ const Content = () => {
           }}
         />
       </View>
+      <View style={styles.content}>
+        <Button
+          backgroundColor="#6d6d6d"
+          text="Custom Toast"
+          onPress={() => {
+            CustomToasterHelper.show({
+              text: randomMessage(),
+              dismissible: false,
+              backgroundColor:
+                '#' + Math.floor(Math.random() * 16777215).toString(16), // random hex generator,
+            });
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -143,6 +162,8 @@ export default function App() {
           <Content />
 
           <Toaster />
+
+          <CustomToaster />
         </View>
       </SafeAreaView>
     </GestureHandlerRootView>
