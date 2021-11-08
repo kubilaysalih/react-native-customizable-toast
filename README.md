@@ -2,7 +2,7 @@
 
 <p align="center">
   <h4>yet another toast library based on reanimated 2 layout animations</h4>
-  <img style="text-align: center" src="https://imgur.com/vpOfl05.gif" />
+  <img src="https://imgur.com/vpOfl05.gif" />
 </p>
 
 
