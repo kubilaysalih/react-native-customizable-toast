@@ -1,7 +1,7 @@
 <h1 align="center">react-native-customizable-toast</h1>
 
 <p align="center">
-  <h4>yet another toast library based on reanimated 2 layout animations</h4>
+  <p align="center">yet another toast library based on reanimated 2 layout animations</p>
   <img src="https://imgur.com/vpOfl05.gif" />
 </p>
 
