@@ -7,7 +7,7 @@ import React, {
   ReactElement,
   RefObject,
 } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { Toast as ToastComponent } from './components/Toast';
 import { ToastContainer } from './components/ToastContainer';
 import { ToastContext } from './contexts/ToastContext';
@@ -78,7 +78,7 @@ const ToasterBaseWithoutRef = <T extends object>(
   });
 
   return (
-    <View style={StyleSheet.absoluteFillObject} pointerEvents="box-none">
+    <SafeAreaView style={StyleSheet.absoluteFillObject} pointerEvents="box-none">
       <PanGestureHandler activeOffsetY={[-10, 10]} onGestureEvent={panGesture}>
         <Animated.View onLayout={onLayout}>
           {[...toasts].reverse().map((e, index) => {
@@ -115,7 +115,7 @@ const ToasterBaseWithoutRef = <T extends object>(
           })}
         </Animated.View>
       </PanGestureHandler>
-    </View>
+    </SafeAreaView>
   );
 };
 
