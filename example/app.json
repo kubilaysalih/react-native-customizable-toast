@@ -1,4 +1,21 @@
 {
   "name": "CustomizableToastExample",
-  "displayName": "CustomizableToast Example"
+  "displayName": "CustomizableToast Example",
+  "expo": {
+    "name": "CustomizableToastExample",
+    "slug": "CustomizableToastExample",
+    "description": "Example app for react-native-customizable-toast",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }

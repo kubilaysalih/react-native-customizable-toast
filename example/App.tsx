@@ -2,15 +2,8 @@ import React from 'react';
 import 'react-native-reanimated';
 import { StyleSheet, Text, View } from 'react-native';
 import { Toaster, ToasterHelper } from 'react-native-customizable-toast';
-import {
-  GestureHandlerRootView,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  CustomToaster,
-  CustomToasterHelper,
-} from './CustomToaster/CustomToaster';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CustomToaster, CustomToasterHelper } from './CustomToaster';
 
 const dummy = [
   'Lorem ipsum dolor sit amet.',
@@ -156,17 +149,13 @@ const Button = ({
 
 export default function App() {
   return (
-    <GestureHandlerRootView style={styles.grow}>
-      <SafeAreaView style={styles.grow}>
-        <View style={styles.grow}>
-          <Content />
+    <View style={[styles.grow]}>
+      <Content />
 
-          <Toaster />
+      <Toaster />
 
-          <CustomToaster />
-        </View>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+      <CustomToaster />
+    </View>
   );
 }
 

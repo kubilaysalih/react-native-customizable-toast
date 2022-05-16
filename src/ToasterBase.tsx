@@ -95,7 +95,6 @@ const ToasterBaseWithoutRef = <T extends object>(
                 <ToastContainer
                   {...rest}
                   index={index}
-                  key={e.id}
                   gestureValues={{
                     translationY,
                     translationX,
