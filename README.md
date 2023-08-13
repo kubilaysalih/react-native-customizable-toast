@@ -2,7 +2,9 @@
 
 <p align="center">
   <p align="center">yet another toast library based on reanimated 2 layout animations</p>
-  <img src="https://imgur.com/vpOfl05.gif" />
+  <div style="text-align:center;background:#943740;">
+    <img src="demo.gif" />
+  </div>
 </p>
 
 
@@ -12,12 +14,13 @@
   - Custom toast renderer
   - Custom vertical swipe animations
   - Custom layout animations
+  - Display from top (default) or from bottom
 - Swipeable both vertical and horizontal
 - Fully typed with TypeScript
 
 ## Requirements
-- react-native-reanimated ^2.3.0
-- react-native-gesture-handler ^1.10.0
+- react-native-reanimated ^3
+- react-native-gesture-handler ^2
 
 ## Installation
 
