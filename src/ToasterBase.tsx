@@ -12,10 +12,7 @@ import { Toast as ToastComponent } from './components/Toast';
 import { ToastContainer } from './components/ToastContainer';
 import { ToastContext } from './contexts/ToastContext';
 import Animated from 'react-native-reanimated';
-import {
-  GestureDetector,
-  PanGestureHandler,
-} from 'react-native-gesture-handler';
+import { GestureDetector } from 'react-native-gesture-handler';
 
 import type {
   Toast,
@@ -122,6 +119,7 @@ const ToasterBaseWithoutRef = <T extends object>(
                     width,
                   }}
                   itemStyle={itemStyle}
+                  displayFromBottom={displayFromBottom}
                 >
                   {createElement(render)}
                 </ToastContainer>

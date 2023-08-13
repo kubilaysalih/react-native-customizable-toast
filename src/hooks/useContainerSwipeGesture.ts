@@ -3,6 +3,7 @@ import { Gesture } from 'react-native-gesture-handler';
 import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useMemo } from 'react';
 
+const SCREEN_HEIGHT = Dimensions.get('screen').height;
 export const useContainerSwipeGesture = ({
   onFinish,
   activeOffsetY,
@@ -12,28 +13,23 @@ export const useContainerSwipeGesture = ({
   activeOffsetY?: number | number[];
   displayFromBottom?: boolean;
 }) => {
-  const screenHeight = Dimensions.get('screen').height;
   const translationY = useSharedValue<number>(0);
   const translationX = useSharedValue<number>(0);
   const panGesture = useMemo(() => {
     const panGest = Gesture.Pan()
       .onStart((event) => {
-        console.log('onStart');
+        // console.log('onStart');
         translationX.value = event.translationX;
         translationY.value = event.translationY;
       })
       .onChange((event) => {
         translationX.value += event.changeX;
-        if (displayFromBottom) {
-          translationY.value -= event.changeY;
-        } else {
-          translationY.value += event.changeY;
-        }
-        console.log('onChange', translationY.value);
+        translationY.value += event.changeY;
+        // console.log('onChange', translationY.value);
       })
       .onEnd((event) => {
-        console.log('onEnd ' + event.absoluteY + ' ' + screenHeight);
-        if (displayFromBottom && event.absoluteY > screenHeight - 100) {
+        // console.log('onEnd ' + event.absoluteY + ' ' + SCREEN_HEIGHT);
+        if (displayFromBottom && event.absoluteY > SCREEN_HEIGHT - 100) {
           runOnJS(onFinish)();
         } else if (!displayFromBottom && event.absoluteY < 100) {
           runOnJS(onFinish)();
@@ -44,14 +40,7 @@ export const useContainerSwipeGesture = ({
       panGest.activeOffsetY(activeOffsetY);
     }
     return panGest;
-  }, [
-    activeOffsetY,
-    displayFromBottom,
-    onFinish,
-    screenHeight,
-    translationX,
-    translationY,
-  ]);
+  }, [activeOffsetY, displayFromBottom, onFinish, translationX, translationY]);
 
   return {
     panGesture,
