@@ -3,16 +3,19 @@ import React, {
   createElement,
   useImperativeHandle,
   useState,
-  Ref,
-  ReactElement,
-  RefObject,
+  type Ref,
+  type ReactElement,
+  type RefObject,
 } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { Toast as ToastComponent } from './components/Toast';
 import { ToastContainer } from './components/ToastContainer';
 import { ToastContext } from './contexts/ToastContext';
 import Animated from 'react-native-reanimated';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import {
+  GestureDetector,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
 
 import type {
   Toast,
@@ -29,12 +32,15 @@ const ToasterBaseWithoutRef = <T extends object>(
     render = ToastComponent,
     onSwipeEdge,
     itemStyle = defaultStyleWorklet,
+    displayFromBottom,
+    useSafeArea,
     ...rest
   }: ToasterProps<T>,
   ref: Ref<ToasterMethods<T>>
 ) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const { height, x, y, width, onLayout } = useLayout();
+  const WrapperComponent = useSafeArea ? SafeAreaView : View;
 
   useImperativeHandle(ref, () => ({
     show: _show,
@@ -44,7 +50,8 @@ const ToasterBaseWithoutRef = <T extends object>(
   }));
 
   const _show = (options?: ToastOptions) => {
-    const id = Date.now().toString();
+    const id =
+      Date.now().toString() + (Math.random() + 1).toString(36).substring(10); // Strenghen coliision
     setToasts([...toasts, { ...options, id }]);
     return id;
   };
@@ -68,6 +75,8 @@ const ToasterBaseWithoutRef = <T extends object>(
   };
 
   const { panGesture, translationY, translationX } = useContainerSwipeGesture({
+    displayFromBottom,
+    activeOffsetY: [-10, 10],
     onFinish: () => {
       if (onSwipeEdge) {
         onSwipeEdge({ filter: _filter, hide: _hide, hideAll: _hideAll });
@@ -77,11 +86,18 @@ const ToasterBaseWithoutRef = <T extends object>(
     },
   });
 
+  const toastToShow = displayFromBottom ? [...toasts] : [...toasts].reverse();
   return (
-    <View style={StyleSheet.absoluteFillObject} pointerEvents="box-none">
-      <PanGestureHandler activeOffsetY={[-10, 10]} onGestureEvent={panGesture}>
+    <WrapperComponent
+      style={[
+        StyleSheet.absoluteFillObject,
+        displayFromBottom ? { justifyContent: 'flex-end' } : null,
+      ]}
+      pointerEvents="box-none"
+    >
+      <GestureDetector gesture={panGesture}>
         <Animated.View onLayout={onLayout}>
-          {[...toasts].reverse().map((e, index) => {
+          {toastToShow.map((e, index) => {
             const hide = () => _hide(e.id);
             return (
               <ToastContext.Provider
@@ -113,8 +129,8 @@ const ToasterBaseWithoutRef = <T extends object>(
             );
           })}
         </Animated.View>
-      </PanGestureHandler>
-    </View>
+      </GestureDetector>
+    </WrapperComponent>
   );
 };
 

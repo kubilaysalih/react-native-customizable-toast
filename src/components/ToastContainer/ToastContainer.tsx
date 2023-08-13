@@ -1,4 +1,4 @@
-import React, { memo, PropsWithChildren } from 'react';
+import React, { memo, type PropsWithChildren } from 'react';
 import Animated, {
   FadeIn,
   FadeOut,

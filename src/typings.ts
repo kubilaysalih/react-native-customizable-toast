@@ -56,6 +56,8 @@ export interface ToasterProps<T = void> extends LayoutAnimationProps {
   render?: React.ElementType;
   itemStyle?: (value: ToastItemProps) => ReturnType<typeof useAnimatedStyle>;
   onSwipeEdge?: (helpers: OnSwipeEdge<T>) => void;
+  displayFromBottom?: boolean;
+  useSafeArea?: boolean;
 }
 
 export type BaseProps = {

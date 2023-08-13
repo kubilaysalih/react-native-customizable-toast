@@ -18,11 +18,11 @@ export const defaultStyleWorklet = ({
         scale: loading
           ? 1
           : interpolate(
-              -translationY.value - y.value,
-              [0, 100],
-              [1, 0],
-              Extrapolate.CLAMP
-            ),
+            -translationY.value - y.value,
+            [0, 100],
+            [1, 0],
+            Extrapolate.CLAMP
+          ),
       },
     ],
   };

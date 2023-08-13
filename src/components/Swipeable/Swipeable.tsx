@@ -1,4 +1,4 @@
-import React, { memo, PropsWithChildren } from 'react';
+import React, { memo, type PropsWithChildren } from 'react';
 import { Dimensions } from 'react-native';
 import Animated, {
   runOnJS,
@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {
   PanGestureHandler,
-  PanGestureHandlerGestureEvent,
+  type PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
 import type { ContextType } from '../../typings';
 import type { SwipeableProps } from './typings';

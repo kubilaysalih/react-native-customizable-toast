@@ -15,12 +15,19 @@ export const ToasterHelper = {
     ToasterRef.current?.update(id, options),
 };
 
-export const Toaster = () => {
+export interface ToasterProps {
+  displayFromBottom?: boolean;
+  useSafeArea?: boolean;
+}
+
+export const Toaster = ({ useSafeArea, displayFromBottom }: ToasterProps) => {
   return (
     <ToasterBase
       onSwipeEdge={({ filter }) => filter((e) => e.loading)}
       ref={ToasterRef}
       itemStyle={defaultStyleWorklet}
+      displayFromBottom={displayFromBottom}
+      useSafeArea={useSafeArea}
     />
   );
 };

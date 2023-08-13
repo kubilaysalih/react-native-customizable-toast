@@ -13,7 +13,7 @@ export {
   useToast,
   useAutoHide,
   Swipeable,
-  ToasterMethods,
   defaultStyleWorklet,
-  ToastItemProps,
 };
+
+export type { ToasterMethods, ToastItemProps };

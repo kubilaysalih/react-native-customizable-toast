@@ -93,7 +93,14 @@ const CustomToastComponent = () => {
   );
 };
 
-export const CustomToaster = () => {
+interface CustomToasterProps {
+  displayFromBottom?: boolean;
+  useSafeArea?: boolean;
+}
+export const CustomToaster = ({
+  useSafeArea,
+  displayFromBottom,
+}: CustomToasterProps) => {
   return (
     <ToasterBase
       entering={SlideInLeft}
@@ -102,6 +109,8 @@ export const CustomToaster = () => {
       ref={CustomToasterRef}
       render={CustomToastComponent}
       itemStyle={customStyleWorklet}
+      displayFromBottom={displayFromBottom}
+      useSafeArea={useSafeArea}
     />
   );
 };
