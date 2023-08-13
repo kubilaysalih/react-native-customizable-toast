@@ -1,4 +1,4 @@
-import React, { memo, PropsWithChildren } from 'react';
+import React, { memo, type PropsWithChildren } from 'react';
 import Animated, {
   FadeIn,
   FadeOut,
@@ -19,6 +19,7 @@ export const ToastContainer = memo(
     gestureValues,
     containerLayout,
     itemStyle,
+    displayFromBottom = false,
   }: PropsWithChildren<ToastContainerProps>) => {
     const { y, x, height, width, onLayout } = useLayout();
     const toast = useToast();
@@ -38,6 +39,7 @@ export const ToastContainer = memo(
               ...toast,
               index,
             },
+            displayFromBottom,
           })
         : {};
     });

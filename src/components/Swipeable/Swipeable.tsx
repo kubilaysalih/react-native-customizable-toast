@@ -1,17 +1,12 @@
-import React, { memo, PropsWithChildren } from 'react';
+import React, { memo, type PropsWithChildren } from 'react';
 import { Dimensions } from 'react-native';
 import Animated, {
   runOnJS,
-  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler';
-import type { ContextType } from '../../typings';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import type { SwipeableProps } from './typings';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -24,17 +19,14 @@ export const Swipeable = memo(
   }: PropsWithChildren<SwipeableProps>) => {
     const translateX = useSharedValue(0);
 
-    const panGesture = useAnimatedGestureHandler<
-      PanGestureHandlerGestureEvent,
-      ContextType
-    >({
-      onStart: (_, context) => {
-        context.startX = translateX.value;
-      },
-      onActive: (event, context) => {
-        translateX.value = context.startX + event.translationX;
-      },
-      onEnd: () => {
+    const panGesture = Gesture.Pan()
+      .onStart((event) => {
+        translateX.value = event.translationX;
+      })
+      .onChange((event) => {
+        translateX.value += event.changeX;
+      })
+      .onEnd(() => {
         const willDisappear =
           translateX.value > SCREEN_WIDTH / 3 ||
           translateX.value < -SCREEN_WIDTH / 3;
@@ -45,9 +37,9 @@ export const Swipeable = memo(
             runOnJS(onSwipe)();
           }
         });
-      },
-    });
-
+      })
+      .activeOffsetX([-10, 10])
+      .enabled(!disabled);
     const swipeableStyle = useAnimatedStyle(() => ({
       transform: [
         {
@@ -57,13 +49,9 @@ export const Swipeable = memo(
     }));
 
     return (
-      <PanGestureHandler
-        enabled={!disabled}
-        activeOffsetX={[-10, 10]}
-        onGestureEvent={panGesture}
-      >
+      <GestureDetector gesture={panGesture}>
         <Animated.View style={swipeableStyle}>{children}</Animated.View>
-      </PanGestureHandler>
+      </GestureDetector>
     );
   }
 );

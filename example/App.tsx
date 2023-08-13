@@ -1,8 +1,11 @@
-import React from 'react';
-import 'react-native-reanimated';
+import React, { useState } from 'react';
+// import 'react-native-reanimated';
 import { StyleSheet, Text, View } from 'react-native';
 import { Toaster, ToasterHelper } from 'react-native-customizable-toast';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  GestureHandlerRootView,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 import { CustomToaster, CustomToasterHelper } from './CustomToaster';
 
 const dummy = [
@@ -19,7 +22,18 @@ const dummy = [
 
 const randomMessage = () => dummy[Math.floor(Math.random() * dummy.length)];
 
-const Content = () => {
+interface ContentProps {
+  toggleSafeArea: () => void;
+  togglePosition: () => void;
+  displayFromBottom?: boolean;
+  useSafeArea?: boolean;
+}
+const Content = ({
+  toggleSafeArea,
+  togglePosition,
+  displayFromBottom,
+  useSafeArea,
+}: ContentProps) => {
   return (
     <View style={[styles.grow, styles.wrapper]}>
       <View style={styles.content}>
@@ -119,6 +133,18 @@ const Content = () => {
           }}
         />
       </View>
+      <View style={styles.content}>
+        <Button
+          backgroundColor="#6d6d6d"
+          text={'Position: ' + (displayFromBottom ? 'Bottom' : 'Top')}
+          onPress={togglePosition}
+        />
+        <Button
+          backgroundColor="#6d6d6d"
+          text={'SafeArea?: ' + (useSafeArea ? 'Yes' : 'No')}
+          onPress={toggleSafeArea}
+        />
+      </View>
     </View>
   );
 };
@@ -148,14 +174,27 @@ const Button = ({
 };
 
 export default function App() {
+  const [displayFromBottom, setDisplayFromBottom] = useState(false);
+  const [useSafeArea, setUseSafeArea] = useState(false);
   return (
-    <View style={[styles.grow]}>
-      <Content />
+    <GestureHandlerRootView style={[styles.grow]}>
+      <Content
+        toggleSafeArea={() => setUseSafeArea((prev) => !prev)}
+        togglePosition={() => setDisplayFromBottom((prev) => !prev)}
+        useSafeArea={useSafeArea}
+        displayFromBottom={displayFromBottom}
+      />
 
-      <Toaster />
+      <Toaster
+        useSafeArea={useSafeArea}
+        displayFromBottom={displayFromBottom}
+      />
 
-      <CustomToaster />
-    </View>
+      <CustomToaster
+        useSafeArea={useSafeArea}
+        displayFromBottom={displayFromBottom}
+      />
+    </GestureHandlerRootView>
   );
 }
 
@@ -164,7 +203,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   wrapper: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   content: {
     flexDirection: 'row',

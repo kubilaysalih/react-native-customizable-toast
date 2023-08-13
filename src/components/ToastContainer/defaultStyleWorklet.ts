@@ -6,6 +6,7 @@ export const defaultStyleWorklet = ({
   itemLayout: { y },
   gesture: { translationY },
   properties: { loading },
+  displayFromBottom,
 }: ToastItemProps) => {
   'worklet';
 
@@ -24,6 +25,7 @@ export const defaultStyleWorklet = ({
               Extrapolate.CLAMP
             ),
       },
+      displayFromBottom ? { rotate: '-180deg' } : { rotate: '0deg' },
     ],
   };
 };

@@ -45,6 +45,7 @@ export const customStyleWorklet = ({
   itemLayout: { y },
   gesture: { translationY },
   properties: { index },
+  displayFromBottom,
 }: ToastItemProps) => {
   'worklet';
 
@@ -61,6 +62,7 @@ export const customStyleWorklet = ({
           Extrapolate.CLAMP
         ),
       },
+      displayFromBottom ? { rotate: '-180deg' } : { rotate: '0deg' },
     ],
   };
 };
@@ -93,7 +95,14 @@ const CustomToastComponent = () => {
   );
 };
 
-export const CustomToaster = () => {
+interface CustomToasterProps {
+  displayFromBottom?: boolean;
+  useSafeArea?: boolean;
+}
+export const CustomToaster = ({
+  useSafeArea,
+  displayFromBottom,
+}: CustomToasterProps) => {
   return (
     <ToasterBase
       entering={SlideInLeft}
@@ -102,6 +111,8 @@ export const CustomToaster = () => {
       ref={CustomToasterRef}
       render={CustomToastComponent}
       itemStyle={customStyleWorklet}
+      displayFromBottom={displayFromBottom}
+      useSafeArea={useSafeArea}
     />
   );
 };

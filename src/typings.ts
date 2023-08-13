@@ -6,10 +6,6 @@ export type Toast = {
   id: string;
 };
 
-export type ContextType = {
-  startX: number;
-};
-
 export type ToastOptions = Omit<Toast, 'id'>;
 
 export interface ToasterMethods<T = void> {
@@ -50,12 +46,15 @@ export type ToastItemProps = {
     [key: string]: any;
     index: number;
   };
+  displayFromBottom?: boolean;
 };
 
 export interface ToasterProps<T = void> extends LayoutAnimationProps {
   render?: React.ElementType;
   itemStyle?: (value: ToastItemProps) => ReturnType<typeof useAnimatedStyle>;
   onSwipeEdge?: (helpers: OnSwipeEdge<T>) => void;
+  displayFromBottom?: boolean;
+  useSafeArea?: boolean;
 }
 
 export type BaseProps = {
@@ -71,4 +70,5 @@ export interface ToastContainerProps extends LayoutAnimationProps {
   gestureValues: Translation;
   containerLayout: Layout;
   itemStyle?: (value: ToastItemProps) => ReturnType<typeof useAnimatedStyle>;
+  displayFromBottom?: boolean;
 }
