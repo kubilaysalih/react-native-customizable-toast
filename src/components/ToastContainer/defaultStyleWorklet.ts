@@ -25,7 +25,7 @@ export const defaultStyleWorklet = ({
               Extrapolate.CLAMP
             ),
       },
-      displayFromBottom ? { rotate: '-180deg' } : null,
-    ].filter((item) => !!item),
+      displayFromBottom ? { rotate: '-180deg' } : { rotate: '0deg' },
+    ],
   };
 };
