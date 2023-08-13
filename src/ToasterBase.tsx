@@ -48,7 +48,7 @@ const ToasterBaseWithoutRef = <T extends object>(
 
   const _show = (options?: ToastOptions) => {
     const id =
-      Date.now().toString() + (Math.random() + 1).toString(36).substring(10); // Strenghen coliision
+      Date.now().toString() + (Math.random() + 1).toString(36).substring(10); // Strengthen Collision detection
     setToasts([...toasts, { ...options, id }]);
     return id;
   };
