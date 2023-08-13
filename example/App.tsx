@@ -177,7 +177,7 @@ const Button = ({
 
 export default function App() {
   const [displayFromBottom, setDisplayFromBottom] = useState(false);
-  const [useSafeArea, setUseSafeArea] = useState(false);
+  const [useSafeArea, setUseSafeArea] = useState(true);
   return (
     <GestureHandlerRootView style={[styles.grow]}>
       <Content

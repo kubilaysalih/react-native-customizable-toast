@@ -18,17 +18,18 @@ export const useContainerSwipeGesture = ({
   const panGesture = useMemo(() => {
     const panGest = Gesture.Pan()
       .onStart((event) => {
-        // console.log('onStart');
         translationX.value = event.translationX;
         translationY.value = event.translationY;
       })
       .onChange((event) => {
         translationX.value += event.changeX;
-        translationY.value += event.changeY;
-        // console.log('onChange', translationY.value);
+        if (displayFromBottom) {
+          translationY.value -= event.changeY;
+        } else {
+          translationY.value += event.changeY;
+        }
       })
       .onEnd((event) => {
-        // console.log('onEnd ' + event.absoluteY + ' ' + SCREEN_HEIGHT);
         if (displayFromBottom && event.absoluteY > SCREEN_HEIGHT - 100) {
           runOnJS(onFinish)();
         } else if (!displayFromBottom && event.absoluteY < 100) {

@@ -29,7 +29,7 @@ const ToasterBaseWithoutRef = <T extends object>(
     render = ToastComponent,
     onSwipeEdge,
     itemStyle = defaultStyleWorklet,
-    displayFromBottom,
+    displayFromBottom = false,
     useSafeArea,
     ...rest
   }: ToasterProps<T>,
@@ -49,7 +49,7 @@ const ToasterBaseWithoutRef = <T extends object>(
   const _show = (options?: ToastOptions) => {
     const id =
       Date.now().toString() + (Math.random() + 1).toString(36).substring(10); // Strengthen Collision detection
-    setToasts([...toasts, { ...options, id }]);
+    setToasts((prev) => [...prev, { ...options, id }]);
     return id;
   };
 
@@ -83,18 +83,17 @@ const ToasterBaseWithoutRef = <T extends object>(
     },
   });
 
-  const toastToShow = displayFromBottom ? [...toasts] : [...toasts].reverse();
   return (
     <WrapperComponent
       style={[
         StyleSheet.absoluteFillObject,
-        displayFromBottom ? { justifyContent: 'flex-end' } : null,
+        displayFromBottom ? { transform: [{ rotate: '180deg' }] } : null,
       ]}
       pointerEvents="box-none"
     >
       <GestureDetector gesture={panGesture}>
         <Animated.View onLayout={onLayout}>
-          {toastToShow.map((e, index) => {
+          {[...toasts].reverse().map((e, index) => {
             const hide = () => _hide(e.id);
             return (
               <ToastContext.Provider
