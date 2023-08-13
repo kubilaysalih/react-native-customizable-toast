@@ -22,7 +22,7 @@ import type {
 } from './typings';
 import { useLayout } from './hooks/useLayout';
 import { useContainerSwipeGesture } from './hooks/useContainerSwipeGesture';
-import { defaultStyleWorklet } from 'react-native-customizable-toast';
+import { defaultStyleWorklet } from './components/ToastContainer/defaultStyleWorklet';
 
 const ToasterBaseWithoutRef = <T extends object>(
   {
@@ -87,7 +87,11 @@ const ToasterBaseWithoutRef = <T extends object>(
     <WrapperComponent
       style={[
         StyleSheet.absoluteFillObject,
-        displayFromBottom ? { transform: [{ rotate: '180deg' }] } : null,
+        {
+          transform: [
+            displayFromBottom ? { rotate: '180deg' } : { rotate: '0deg' },
+          ],
+        },
       ]}
       pointerEvents="box-none"
     >

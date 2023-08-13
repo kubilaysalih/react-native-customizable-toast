@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 // import 'react-native-reanimated';
-import { LogBox, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Toaster, ToasterHelper } from 'react-native-customizable-toast';
 import {
   GestureHandlerRootView,
   TouchableOpacity,
 } from 'react-native-gesture-handler';
 import { CustomToaster, CustomToasterHelper } from './CustomToaster';
-
-LogBox.ignoreLogs(['Require cycle: ../src/index.ts']);
 
 const dummy = [
   'Lorem ipsum dolor sit amet.',
