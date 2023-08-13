@@ -18,7 +18,7 @@ export const defaultStyleWorklet = ({
       {
         translateY: displayFromBottom
           ? clamp(translationY.value, 0, y.value) // TODO
-          : clamp(translationY.value, 0, y.value),
+          : clamp(translationY.value, -y.value, 0),
       },
       {
         scale: loading
