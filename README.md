@@ -2,9 +2,9 @@
 
 <p align="center">
   <p align="center">yet another toast library based on reanimated 2 layout animations</p>
-  <div style="text-align:center;background:#943740;">
+  <p align="center" style="background:#943740;">
     <img src="demo.gif" />
-  </div>
+  </p>
 </p>
 
 
