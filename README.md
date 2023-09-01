@@ -59,6 +59,27 @@ ToasterHelper.show({
 
 ```
 
+## React Native Modal (React Native Screens)
+When using a Modal with React Navigation, the toasts appear under the Modal (https://github.com/software-mansion/react-native-screens/issues/525).
+The solution is to use FullWindowOverlay to wrap the base component.
+
+```js
+import { Toaster } from "react-native-customizable-toast";
+import { FullWindowOverlay } from 'react-native-screens';
+
+export default function App() {
+  return (
+    <View style={{ flex: 1 }}>
+      <Content />
+
+      <FullWindowOverlay>
+        <Toaster />
+      </FullWindowOverlay>
+    </View>
+  );
+}
+```
+
 ## Default Methods
 
 ```js
