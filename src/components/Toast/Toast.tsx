@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 5,
     padding: 10,
-    minHeight: 40,
+    minHeight: 48,
   },
   text: {
     color: '#ffffff',
