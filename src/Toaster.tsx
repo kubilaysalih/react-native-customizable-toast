@@ -1,13 +1,13 @@
-import React, { createRef } from 'react';
-import { ToasterBase } from './ToasterBase';
-import type { ToastProperties } from './components/Toast/typings';
-import type { ToasterMethods } from './typings';
-import { defaultStyleWorklet } from './components/ToastContainer/defaultStyleWorklet';
+import React, { createRef } from "react";
+import { ToasterBase } from "./ToasterBase";
+import type { ToastProperties } from "./components/Toast/typings";
+import type { ToasterMethods } from "./typings";
+import { defaultStyleWorklet } from "./components/ToastContainer/defaultStyleWorklet";
 
 export const ToasterRef = createRef<ToasterMethods<ToastProperties>>();
 
 export const ToasterHelper = {
-  show: (options: ToastProperties) => ToasterRef.current?.show(options)!,
+  show: (options: ToastProperties) => ToasterRef.current?.show(options),
   hide: (id: string) => ToasterRef.current?.hide(id),
   filter: (fn: (value: ToastProperties, index: number) => void) =>
     ToasterRef.current?.filter(fn),

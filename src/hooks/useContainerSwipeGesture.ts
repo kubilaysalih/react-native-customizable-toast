@@ -1,16 +1,16 @@
-import { Dimensions } from 'react-native';
-import { Gesture } from 'react-native-gesture-handler';
-import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';
-import { useMemo } from 'react';
+import { Dimensions } from "react-native";
+import { Gesture } from "react-native-gesture-handler";
+import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
+import { useMemo } from "react";
 
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
+const SCREEN_HEIGHT = Dimensions.get("screen").height;
 export const useContainerSwipeGesture = ({
   onFinish,
   activeOffsetY,
   displayFromBottom,
 }: {
   onFinish(): void;
-  activeOffsetY?: number | number[];
+  activeOffsetY?: number | [activeOffsetYStart: number, activeOffsetYEnd: number];
   displayFromBottom?: boolean;
 }) => {
   const translationY = useSharedValue<number>(0);

@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import type { LayoutChangeEvent } from 'react-native';
-import { useSharedValue } from 'react-native-reanimated';
+import { useCallback } from "react";
+import type { LayoutChangeEvent } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 
 export const useLayout = () => {
   const itemY = useSharedValue<number>(0);
@@ -18,7 +18,6 @@ export const useLayout = () => {
     itemX.value = x;
     itemWidth.value = width;
     itemHeight.value = height;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

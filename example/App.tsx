@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Toaster, ToasterHelper } from 'react-native-customizable-toast';
 import {
   GestureHandlerRootView,
-  TouchableOpacity,
+  Pressable
 } from 'react-native-gesture-handler';
 import { CustomToaster, CustomToasterHelper } from './CustomToaster';
 
@@ -159,7 +159,7 @@ const Button = ({
   backgroundColor: string;
 }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={onPress}
       style={[
         styles.button,
@@ -169,7 +169,7 @@ const Button = ({
       ]}
     >
       <Text style={styles.buttonText}>{text}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

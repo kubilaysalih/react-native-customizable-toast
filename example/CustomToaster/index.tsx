@@ -1,19 +1,19 @@
-import React, { createRef } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { createRef } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import {
   ToasterBase,
-  ToasterMethods,
+  type ToasterMethods,
   useToast,
   Swipeable,
-  ToastItemProps,
-} from 'react-native-customizable-toast';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+  type ToastItemProps,
+} from "react-native-customizable-toast";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   Extrapolate,
   interpolate,
   SlideInLeft,
   SlideOutRight,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 type MyCustomToaster = {
   text: string;
@@ -35,9 +35,9 @@ export const CustomToasterHelper = {
 export const clamp = (
   value: number,
   lowerBound: number,
-  upperBound: number
+  upperBound: number,
 ) => {
-  'worklet';
+  "worklet";
   return Math.min(Math.max(lowerBound, value), upperBound);
 };
 
@@ -47,7 +47,7 @@ export const customStyleWorklet = ({
   properties: { index },
   displayFromBottom,
 }: ToastItemProps) => {
-  'worklet';
+  "worklet";
 
   return {
     transform: [
@@ -59,10 +59,10 @@ export const customStyleWorklet = ({
           -translationY.value - y.value,
           [0, 100],
           [0, index % 2 ? 1000 : -1000],
-          Extrapolate.CLAMP
+          Extrapolate.CLAMP,
         ),
       },
-      displayFromBottom ? { rotate: '-180deg' } : { rotate: '0deg' },
+      displayFromBottom ? { rotate: "-180deg" } : { rotate: "0deg" },
     ],
   };
 };
@@ -72,7 +72,7 @@ const CustomToastComponent = () => {
     text,
     hide,
     dismissible,
-    backgroundColor = '#222',
+    backgroundColor = "#222",
   } = useToast<MyCustomToaster>();
 
   return (
@@ -107,6 +107,7 @@ export const CustomToaster = ({
     <ToasterBase
       entering={SlideInLeft}
       exiting={SlideOutRight}
+      // @ts-expect-error Property 'loading' does not exist on type 'never'
       onSwipeEdge={({ filter }) => filter((e) => !e.dismissible)}
       ref={CustomToasterRef}
       render={CustomToastComponent}
@@ -123,14 +124,14 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   touchable: {
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
     borderRadius: 5,
     padding: 10,
     minHeight: 40,
   },
   text: {
-    color: '#ffffff',
+    color: "#ffffff",
     flex: 1,
   },
 });
