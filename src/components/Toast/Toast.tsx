@@ -45,7 +45,7 @@ export const Toast = () => {
     () => (
       <Swipeable onSwipe={hide} disabled={loading || !dismissible}>
         <View style={styles.container}>
-          <TouchableOpacity
+          <Pressable
             activeOpacity={0.8}
             disabled={loading || !dismissible}
             style={[
@@ -65,7 +65,7 @@ export const Toast = () => {
             )}
             <Text style={styles.text}>{text}</Text>
             {loading && <ActivityIndicator size="small" color="#fff" />}
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </Swipeable>
     ),
