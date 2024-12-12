@@ -10,7 +10,9 @@ export const useContainerSwipeGesture = ({
   displayFromBottom,
 }: {
   onFinish(): void;
-  activeOffsetY?: number | [activeOffsetYStart: number, activeOffsetYEnd: number];
+  activeOffsetY?:
+    | number
+    | [activeOffsetYStart: number, activeOffsetYEnd: number];
   displayFromBottom?: boolean;
 }) => {
   const translationY = useSharedValue<number>(0);

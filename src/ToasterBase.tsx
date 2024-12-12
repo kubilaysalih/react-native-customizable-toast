@@ -21,17 +21,15 @@ import { useLayout } from "./hooks/useLayout";
 import { useContainerSwipeGesture } from "./hooks/useContainerSwipeGesture";
 import { defaultStyleWorklet } from "./components/ToastContainer/defaultStyleWorklet";
 
-export const ToasterBase = <T extends object>(
-  {
-    render = ToastComponent,
-    onSwipeEdge,
-    itemStyle = defaultStyleWorklet,
-    displayFromBottom = false,
-    useSafeArea,
-    ref,
-    ...rest
-  }: ToasterProps<T> & {ref: Ref<ToasterMethods<T>>}
-) => {
+export const ToasterBase = <T extends object>({
+  render = ToastComponent,
+  onSwipeEdge,
+  itemStyle = defaultStyleWorklet,
+  displayFromBottom = false,
+  useSafeArea,
+  ref,
+  ...rest
+}: ToasterProps<T> & { ref: Ref<ToasterMethods<T>> }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const { height, x, y, width, onLayout } = useLayout();
   const WrapperComponent = useSafeArea ? SafeAreaView : View;
