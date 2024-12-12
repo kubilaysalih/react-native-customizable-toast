@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native";
 
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Pressable } from "react-native-gesture-handler";
 import type { ToastProperties } from "../Toast/typings";
 import { useToast } from "../../hooks/useToast";
 import { Swipeable } from "../Swipeable";
