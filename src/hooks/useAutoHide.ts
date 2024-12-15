@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useToast } from './useToast';
+import { useEffect } from "react";
+import { useToast } from "./useToast";
 
 export const useAutoHide = () => {
   const { hide, timeout = 7000 } = useToast<{ timeout: number }>();
@@ -14,6 +14,5 @@ export const useAutoHide = () => {
     return () => {
       if (n) clearTimeout(n);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };

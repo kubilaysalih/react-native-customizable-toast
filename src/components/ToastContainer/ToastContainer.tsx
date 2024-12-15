@@ -1,13 +1,13 @@
-import React, { memo, type PropsWithChildren } from 'react';
+import React, { memo, type PropsWithChildren } from "react";
 import Animated, {
   FadeIn,
   FadeOut,
   Layout,
   useAnimatedStyle,
-} from 'react-native-reanimated';
-import { useToast } from '../../hooks/useToast';
-import { useLayout } from '../../hooks/useLayout';
-import type { ToastContainerProps } from '../../typings';
+} from "react-native-reanimated";
+import { useToast } from "../../hooks/useToast";
+import { useLayout } from "../../hooks/useLayout";
+import type { ToastContainerProps } from "../../typings";
 
 export const ToastContainer = memo(
   ({
@@ -55,5 +55,5 @@ export const ToastContainer = memo(
         {children}
       </Animated.View>
     );
-  }
+  },
 );

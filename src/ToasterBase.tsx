@@ -1,40 +1,35 @@
 import React, {
-  forwardRef,
   createElement,
   useImperativeHandle,
   useState,
   type Ref,
-  type ReactElement,
-  type RefObject,
-} from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
-import { Toast as ToastComponent } from './components/Toast';
-import { ToastContainer } from './components/ToastContainer';
-import { ToastContext } from './contexts/ToastContext';
-import Animated from 'react-native-reanimated';
-import { GestureDetector } from 'react-native-gesture-handler';
+} from "react";
+import { StyleSheet, View, SafeAreaView } from "react-native";
+import { Toast as ToastComponent } from "./components/Toast";
+import { ToastContainer } from "./components/ToastContainer";
+import { ToastContext } from "./contexts/ToastContext";
+import Animated from "react-native-reanimated";
+import { GestureDetector } from "react-native-gesture-handler";
 
 import type {
   Toast,
   ToasterMethods,
   ToasterProps,
   ToastOptions,
-} from './typings';
-import { useLayout } from './hooks/useLayout';
-import { useContainerSwipeGesture } from './hooks/useContainerSwipeGesture';
-import { defaultStyleWorklet } from './components/ToastContainer/defaultStyleWorklet';
+} from "./typings";
+import { useLayout } from "./hooks/useLayout";
+import { useContainerSwipeGesture } from "./hooks/useContainerSwipeGesture";
+import { defaultStyleWorklet } from "./components/ToastContainer/defaultStyleWorklet";
 
-const ToasterBaseWithoutRef = <T extends object>(
-  {
-    render = ToastComponent,
-    onSwipeEdge,
-    itemStyle = defaultStyleWorklet,
-    displayFromBottom = false,
-    useSafeArea,
-    ...rest
-  }: ToasterProps<T>,
-  ref: Ref<ToasterMethods<T>>
-) => {
+export const ToasterBase = <T extends object>({
+  render = ToastComponent,
+  onSwipeEdge,
+  itemStyle = defaultStyleWorklet,
+  displayFromBottom = false,
+  useSafeArea,
+  ref,
+  ...rest
+}: ToasterProps<T> & { ref: Ref<ToasterMethods<T>> }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const { height, x, y, width, onLayout } = useLayout();
   const WrapperComponent = useSafeArea ? SafeAreaView : View;
@@ -55,7 +50,7 @@ const ToasterBaseWithoutRef = <T extends object>(
 
   const _update = (id: string, options?: Partial<ToastOptions>) => {
     setToasts((prev) =>
-      prev.map((e) => (e.id === id ? { ...e, ...options } : e))
+      prev.map((e) => (e.id === id ? { ...e, ...options } : e)),
     );
   };
 
@@ -63,6 +58,7 @@ const ToasterBaseWithoutRef = <T extends object>(
     setToasts((prev) => prev.filter((e) => e.id !== id));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const _filter = (fn: (value: any, index: number) => void) => {
     setToasts((prev) => prev.filter(fn));
   };
@@ -89,7 +85,7 @@ const ToasterBaseWithoutRef = <T extends object>(
         StyleSheet.absoluteFillObject,
         {
           transform: [
-            displayFromBottom ? { rotate: '180deg' } : { rotate: '0deg' },
+            displayFromBottom ? { rotate: "180deg" } : { rotate: "0deg" },
           ],
         },
       ]}
@@ -134,11 +130,3 @@ const ToasterBaseWithoutRef = <T extends object>(
     </WrapperComponent>
   );
 };
-
-export const ToasterBase = forwardRef(ToasterBaseWithoutRef) as <T>(
-  props: ToasterProps<
-    T extends RefObject<ToasterMethods<infer I>> ? I : never
-  > & {
-    ref: T;
-  }
-) => ReactElement;

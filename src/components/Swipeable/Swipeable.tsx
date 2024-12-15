@@ -1,15 +1,15 @@
-import React, { memo, type PropsWithChildren } from 'react';
-import { Dimensions } from 'react-native';
+import React, { memo, type PropsWithChildren } from "react";
+import { Dimensions } from "react-native";
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from 'react-native-reanimated';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import type { SwipeableProps } from './typings';
+} from "react-native-reanimated";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import type { SwipeableProps } from "./typings";
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export const Swipeable = memo(
   ({
@@ -53,5 +53,5 @@ export const Swipeable = memo(
         <Animated.View style={swipeableStyle}>{children}</Animated.View>
       </GestureDetector>
     );
-  }
+  },
 );

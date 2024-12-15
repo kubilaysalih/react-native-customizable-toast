@@ -1,1 +1,1 @@
-export * from './Swipeable';
+export * from "./Swipeable";

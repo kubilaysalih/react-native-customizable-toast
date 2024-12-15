@@ -1,12 +1,12 @@
-import type { ViewProps } from 'react-native';
-import type { useAnimatedStyle } from 'react-native-reanimated';
-import type Animated from 'react-native-reanimated';
+import type { ViewProps } from "react-native";
+import type { useAnimatedStyle } from "react-native-reanimated";
+import type Animated from "react-native-reanimated";
 
 export type Toast = {
   id: string;
 };
 
-export type ToastOptions = Omit<Toast, 'id'>;
+export type ToastOptions = Omit<Toast, "id">;
 
 export interface ToasterMethods<T = void> {
   show: (options: T) => string;
@@ -23,7 +23,7 @@ type OnSwipeEdge<T> = {
 
 type LayoutAnimationProps = Pick<
   Animated.AnimateProps<ViewProps>,
-  'layout' | 'entering' | 'exiting'
+  "layout" | "entering" | "exiting"
 >;
 
 type Translation = {
@@ -43,6 +43,7 @@ export type ToastItemProps = {
   containerLayout: Layout;
   itemLayout: Layout;
   properties: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
     index: number;
   };
